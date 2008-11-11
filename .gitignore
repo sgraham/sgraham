@@ -20,3 +20,7 @@ UserData/*
 p4tickets.txt
 _viminfo
 .vimprojects
+.appcfg_nag
+PrivacIE/*
+.bash_history
+.vimfuzzyfinder

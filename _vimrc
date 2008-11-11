@@ -47,10 +47,10 @@ set path+=c:/work/packages/easharp/dev/**
 
 map L $
 map H ^
-map <Right> :bnext<CR>
-imap <Right> <ESC>:bnext<CR>
-map <Left> :bprev<CR>
-imap <Left> <ESC>:bprev<CR>
+map <silent> <Right> :bnext<CR>
+imap <silent> <Right> <ESC>:bnext<CR>
+map <silent> <Left> :bprev<CR>
+imap <silent> <Left> <ESC>:bprev<CR>
 map <Home> [[k0zt
 imap <Home> <ESC>[[k0zt
 map <End> j]]k0zt
@@ -58,6 +58,9 @@ imap <End> <ESC>j]]k0zt
 imap <F1> <ESC>
 cmap <F1> <ESC>
 map <F1> <ESC>
+map <Del> :bd<CR>
+map <Ins> :A<CR>
+
 " project.vim
 let g:proj_flags="mstvcg"
 
@@ -74,8 +77,6 @@ map g, [[/^[ \t]*$<CR>O
 map ,q /\*\/<CR>o<ESC>?\/\*<CR>O<ESC>jgqapdd??<CR>kdd
 map ,i0 dO#if 0<CR>#endif<ESC>kp
 map ,u0 %dddd
-map <Del> :bd<CR>
-map <Ins> :A<CR>
 map ,ld :silent! !latex %<CR>:silent! !cmd /c start %:r.dvi<CR>
 map ,lp :silent! !pdflatex %:r<CR>:silent! !cmd /c start %:r.pdf<CR>
 map ,, O//--------------------------------------------<esc>H:s/\s*//<cr>
@@ -87,6 +88,10 @@ noremap <M-l> guiww
 noremap <M-u> gUiww
 noremap! <M-l> <Esc>guiw`]a
 noremap! <M-u> <Esc>gUiw`]a
+noremap <silent> <M-f> :FuzzyFinderFile<cr>
+noremap <silent> <M-t> :FuzzyFinderTag<cr>
+map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+
 
 
 set gcr=a:blockCursor-blinkwait600-blinkoff700-blinkon600
@@ -124,8 +129,6 @@ autocmd BufRead blog.xml exe "normal jo\<CR>\<ESC>,id\<ESC>kkko"
 autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set expandtab ts=4 sw=4 cindent formatoptions=croq
 
 autocmd BufRead,BufEnter,BufNewFile *.py set expandtab
-
-map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
 
 " :wq and :q
 cab Lwq wq
