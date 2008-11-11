@@ -6,3 +6,8 @@
 	diff = auto
 [pack]
 	packSizeLimit = 2g
+[gui]
+	fontdiff = -family Consolas -size 8 -weight normal -slant roman -underline 0 -overstrike 0
+[user]
+	email = scott.github@h4ck3r.net
+	name = Scott Graham
