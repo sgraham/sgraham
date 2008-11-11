@@ -1,6 +1,7 @@
 [core]
 	symlinks = false
-	autocrlf = true
+	autocrlf = false
+	safecrlf = false
 [color]
 	diff = auto
 [pack]
