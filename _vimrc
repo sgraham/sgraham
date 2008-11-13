@@ -42,6 +42,7 @@ set tags+=c:/work/packages/easharp/dev/runtime/tags
 set tags+=c:/work/packages/euclideancombat/dev/src/tags
 set tags+=c:/code/packages/tags
 set tags+=c:/program\\\ files\\\ (x86)/microsoft\\\ visual\\\ studio\\\ 8/vc/tags
+set tags+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source
 set path+=c:/work/packages/easharptest/dev/**
 set path+=c:/work/packages/easharp/dev/**
 
@@ -93,6 +94,11 @@ noremap <silent> <M-t> :FuzzyFinderTag<cr>
 noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
 noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
 noremap <silent> <M-d> :FuzzyFinderDir<cr>
+inoremap <silent> <M-f> <Esc>:FuzzyFinderFile<cr>
+inoremap <silent> <M-t> <Esc>:FuzzyFinderTag<cr>
+inoremap <silent> <M-g> <Esc>:FuzzyFinderTaggedFile<cr>
+inoremap <silent> <M-b> <Esc>:FuzzyFinderBuffer<cr>
+inoremap <silent> <M-d> <Esc>:FuzzyFinderDir<cr>
 map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
 
 " for the wrap nazis
