@@ -24,3 +24,8 @@ _viminfo
 PrivacIE/*
 .bash_history
 .vimfuzzyfinder
+.cvspass
+*.swp
+__*
+*.tmp
+gdbtk.ini

@@ -29,9 +29,9 @@ set viminfo='50,\"1000,:0,n$HOME/_viminfo
 set updatetime=1000
 set previewheight=10
 set titlestring=%t\ %(%r\ %m%)\ %F
-set makeef=\tmp\vim##.err
-set backupdir=/tmp
-set directory=/tmp
+set makeef=c:/tmp/vim##.err
+set backupdir=c:/tmp
+set directory=c:/tmp
 
 "set tags+=c:/devkitPro/libnds/include/tags
 "set tags+=c:/code/twinisles/src/tags
