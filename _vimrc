@@ -25,6 +25,7 @@ set showmatch
 set complete=.,b,u,i
 set ruler
 set gdefault
+let g:clj_highlight_builtins=1
 set viminfo='50,\"1000,:0,n$HOME/_viminfo
 set updatetime=1000
 set previewheight=10
@@ -101,6 +102,9 @@ inoremap <silent> <M-b> <Esc>:FuzzyFinderBuffer<cr>
 inoremap <silent> <M-d> <Esc>:FuzzyFinderDir<cr>
 map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
 
+" current top-level form to clipboard
+map <silent> <F7> ma99[("+y%`a:let @+ .= "\n"<CR>
+
 " for the wrap nazis
 au BufWinEnter *.py,*.cpp,*.c,*.h,*.cs if &textwidth > 4
 \ | let w:m1=matchadd('MatchParen', printf('\%%<%dv.\%%>%dv', &textwidth+1, &textwidth-4), -1)
@@ -170,10 +174,6 @@ syntax on
 augroup filetype
     au! BufRead,BufNewFile *.ll     set filetype=llvm
     au! BufRead,BufNewFile *.llx    set filetype=llvm
-augroup END
-
-augroup filetype
-    au! BufRead,BufNewFile *.clj set filetype=clojure
 augroup END
 
 gui
