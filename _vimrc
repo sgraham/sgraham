@@ -160,6 +160,10 @@ augroup filetype
     au! BufRead,BufNewFile *.llx    set filetype=llvm
 augroup END
 
+augroup filetype
+    au! BufRead,BufNewFile *.clj set filetype=clojure
+augroup END
+
 gui
 set lines=100
 
