@@ -1,7 +1,7 @@
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set tw=130
+set tw=78
 set columns=132
 set lines=200
 set expandtab
@@ -29,9 +29,9 @@ set viminfo='50,\"1000,:0,n$HOME/_viminfo
 set updatetime=1000
 set previewheight=10
 set titlestring=%t\ %(%r\ %m%)\ %F
-set makeef=\tmp\vim##.err
-set backupdir=/tmp
-set directory=/tmp
+set makeef=c:/tmp/vim##.err
+set backupdir=c:/tmp
+set directory=c:/tmp
 
 "set tags+=c:/devkitPro/libnds/include/tags
 "set tags+=c:/code/twinisles/src/tags
@@ -42,6 +42,7 @@ set tags+=c:/work/packages/easharp/dev/runtime/tags
 set tags+=c:/work/packages/euclideancombat/dev/src/tags
 set tags+=c:/code/packages/tags
 set tags+=c:/program\\\ files\\\ (x86)/microsoft\\\ visual\\\ studio\\\ 8/vc/tags
+set tags+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source
 set path+=c:/work/packages/easharptest/dev/**
 set path+=c:/work/packages/easharp/dev/**
 
@@ -90,8 +91,21 @@ noremap! <M-l> <Esc>guiw`]a
 noremap! <M-u> <Esc>gUiw`]a
 noremap <silent> <M-f> :FuzzyFinderFile<cr>
 noremap <silent> <M-t> :FuzzyFinderTag<cr>
+noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
+noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
+noremap <silent> <M-d> :FuzzyFinderDir<cr>
+inoremap <silent> <M-f> <Esc>:FuzzyFinderFile<cr>
+inoremap <silent> <M-t> <Esc>:FuzzyFinderTag<cr>
+inoremap <silent> <M-g> <Esc>:FuzzyFinderTaggedFile<cr>
+inoremap <silent> <M-b> <Esc>:FuzzyFinderBuffer<cr>
+inoremap <silent> <M-d> <Esc>:FuzzyFinderDir<cr>
 map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
 
+" for the wrap nazis
+au BufWinEnter *.py,*.cpp,*.c,*.h,*.cs if &textwidth > 4
+\ | let w:m1=matchadd('MatchParen', printf('\%%<%dv.\%%>%dv', &textwidth+1, &textwidth-4), -1)
+\ | let w:m2=matchadd('ErrorMsg', printf('\%%>%dv.\+', &textwidth), -1)
+\ | endif
 
 
 set gcr=a:blockCursor-blinkwait600-blinkoff700-blinkon600
@@ -127,8 +141,6 @@ autocmd BufRead,BufEnter *.nfo set guifont=Terminal
 autocmd BufRead,BufEnter,BufNewFile *.sc set ic syntax=scheme tabstop=8 shiftwidth=8 autoindent comments=:; define=^\\s*(def\\k* formatoptions-=t iskeyword+=+,-,*,/,%,<,=,>,:,$,?,!,@-@,94 lisp
 autocmd BufRead blog.xml exe "normal jo\<CR>\<ESC>,id\<ESC>kkko"
 autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set expandtab ts=4 sw=4 cindent formatoptions=croq
-
-autocmd BufRead,BufEnter,BufNewFile *.py set expandtab
 
 " :wq and :q
 cab Lwq wq
