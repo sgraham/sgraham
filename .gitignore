@@ -29,3 +29,4 @@ PrivacIE/*
 __*
 *.tmp
 gdbtk.ini
+.netbeans/*

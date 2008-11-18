@@ -25,6 +25,7 @@ set showmatch
 set complete=.,b,u,i
 set ruler
 set gdefault
+let g:clj_highlight_builtins=1
 set viminfo='50,\"1000,:0,n$HOME/_viminfo
 set updatetime=1000
 set previewheight=10
@@ -102,11 +103,27 @@ inoremap <silent> <M-b> <Esc>:FuzzyFinderBuffer<cr>
 inoremap <silent> <M-d> <Esc>:FuzzyFinderDir<cr>
 map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
 
+" current top-level form to clipboard
+map <silent> <F7> ma99[("+y%`a:let @+ .= "\n"<CR>
+
 " for the wrap nazis
-au BufWinEnter *.py,*.cpp,*.c,*.h,*.cs if &textwidth > 4
-\ | let w:m1=matchadd('MatchParen', printf('\%%<%dv.\%%>%dv', &textwidth+1, &textwidth-4), -1)
-\ | let w:m2=matchadd('ErrorMsg', printf('\%%>%dv.\+', &textwidth), -1)
-\ | endif
+map <silent> ,80 :call EightyToggle()<cr>
+function! EightyToggle()
+    if exists("w:m1")
+        call matchdelete(w:m1)
+        call matchdelete(w:m2)
+        unlet w:m1
+        unlet w:m2
+    else
+        if &textwidth > 4
+            let w:m1=matchadd('MatchParen', printf('\%%<%dv.\%%>%dv', &textwidth+1, &textwidth-4), -1)
+            let w:m2=matchadd('ErrorMsg', printf('\%%>%dv.\+', &textwidth), -1)
+        endif
+    endif
+endfunction
+function! EightyOff()
+endfunction
+
 
 
 set gcr=a:blockCursor-blinkwait600-blinkoff700-blinkon600
