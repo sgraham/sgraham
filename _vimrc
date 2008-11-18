@@ -45,6 +45,7 @@ set tags+=c:/program\\\ files\\\ (x86)/microsoft\\\ visual\\\ studio\\\ 8/vc/tag
 set tags+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source
 set path+=c:/work/packages/easharptest/dev/**
 set path+=c:/work/packages/easharp/dev/**
+set path+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source/**
 
 map L $
 map H ^
