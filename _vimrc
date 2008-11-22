@@ -46,6 +46,7 @@ set tags+=c:/program\\\ files\\\ (x86)/microsoft\\\ visual\\\ studio\\\ 8/vc/tag
 set tags+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source
 set path+=c:/work/packages/easharptest/dev/**
 set path+=c:/work/packages/easharp/dev/**
+set path+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source/**
 
 map L $
 map H ^
@@ -106,10 +107,23 @@ map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<C
 map <silent> <F7> ma99[("+y%`a:let @+ .= "\n"<CR>
 
 " for the wrap nazis
-au BufWinEnter *.py,*.cpp,*.c,*.h,*.cs if &textwidth > 4
-\ | let w:m1=matchadd('MatchParen', printf('\%%<%dv.\%%>%dv', &textwidth+1, &textwidth-4), -1)
-\ | let w:m2=matchadd('ErrorMsg', printf('\%%>%dv.\+', &textwidth), -1)
-\ | endif
+map <silent> ,80 :call EightyToggle()<cr>
+function! EightyToggle()
+    if exists("w:m1")
+        call matchdelete(w:m1)
+        call matchdelete(w:m2)
+        unlet w:m1
+        unlet w:m2
+    else
+        if &textwidth > 4
+            let w:m1=matchadd('MatchParen', printf('\%%<%dv.\%%>%dv', &textwidth+1, &textwidth-4), -1)
+            let w:m2=matchadd('ErrorMsg', printf('\%%>%dv.\+', &textwidth), -1)
+        endif
+    endif
+endfunction
+function! EightyOff()
+endfunction
+
 
 
 set gcr=a:blockCursor-blinkwait600-blinkoff700-blinkon600
