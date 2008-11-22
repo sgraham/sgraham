@@ -1,0 +1,8 @@
+bin/jbig-1.dll
+bin/jpeg62.dll
+bin/libpng12.dll
+bin/librle3.dll
+bin/libtiff3.dll
+bin/zlib1.dll
+manifest/netpbm-10.18.4-dep.mft
+manifest/netpbm-10.18.4-dep.ver
