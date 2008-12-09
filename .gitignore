@@ -30,3 +30,4 @@ __*
 *.tmp
 gdbtk.ini
 .netbeans/*
+.matplotlib

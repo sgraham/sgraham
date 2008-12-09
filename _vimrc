@@ -33,6 +33,8 @@ set titlestring=%t\ %(%r\ %m%)\ %F
 set makeef=c:/tmp/vim##.err
 set backupdir=c:/tmp
 set directory=c:/tmp
+set wildmenu
+set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
 
 "set tags+=c:/devkitPro/libnds/include/tags
 "set tags+=c:/code/twinisles/src/tags
@@ -82,6 +84,7 @@ map ,i0 dO#if 0<CR>#endif<ESC>kp
 map ,u0 %dddd
 map ,ld :silent! !latex %<CR>:silent! !cmd /c start %:r.dvi<CR>
 map ,lp :silent! !pdflatex %:r<CR>:silent! !cmd /c start %:r.pdf<CR>
+map ,xt :silent! !xelatex %:r<CR>:silent! !cmd /c start %:r.pdf<CR>
 map ,, O//--------------------------------------------<esc>H:s/\s*//<cr>
 "imap ` <ESC>
 " i'd really prefer perforce.vim but i can never get it working right
@@ -96,11 +99,13 @@ noremap <silent> <M-t> :FuzzyFinderTag<cr>
 noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
 noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
 noremap <silent> <M-d> :FuzzyFinderDir<cr>
+noremap <silent> <M-m> :FuzzyFinderMruFile<cr>
 inoremap <silent> <M-f> <Esc>:FuzzyFinderFile<cr>
 inoremap <silent> <M-t> <Esc>:FuzzyFinderTag<cr>
 inoremap <silent> <M-g> <Esc>:FuzzyFinderTaggedFile<cr>
 inoremap <silent> <M-b> <Esc>:FuzzyFinderBuffer<cr>
 inoremap <silent> <M-d> <Esc>:FuzzyFinderDir<cr>
+inoremap <silent> <M-m> <Esc>:FuzzyFinderMruFile<cr>
 map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
 
 " current top-level form to clipboard
@@ -124,7 +129,15 @@ endfunction
 function! EightyOff()
 endfunction
 
+function! Ack(args)
+    let grepprg_bak=&grepprg
+    set grepprg=ack\ -H\ --nocolor\ --nogroup
+    execute "silent! grep " . a:args
+    botright copen
+    let &grepprg=grepprg_bak
+endfunction
 
+command! -nargs=* -complete=file Ack call Ack(<q-args>)
 
 set gcr=a:blockCursor-blinkwait600-blinkoff700-blinkon600
 set go=a
