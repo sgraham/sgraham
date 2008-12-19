@@ -95,14 +95,14 @@ noremap <M-l> guiww
 noremap <M-u> gUiww
 noremap! <M-l> <Esc>guiw`]a
 noremap! <M-u> <Esc>gUiw`]a
-noremap <silent> <M-f> :FuzzyFinderFile<cr>
-noremap <silent> <M-t> :FuzzyFinderTag<cr>
-noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
-noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
-noremap <silent> <M-d> :FuzzyFinderDir<cr>
-noremap <silent> <M-m> :FuzzyFinderMruFile<cr>
-inoremap <silent> <M-f> <Esc>:FuzzyFinderFile<cr>
-inoremap <silent> <M-t> <Esc>:FuzzyFinderTag<cr>
+noremap <silent> <M-f> :cd %:h<cr>:FuzzyFinderFile<cr>
+noremap <silent> <M-t> :cd %:h<cr>:FuzzyFinderTag<cr>
+noremap <silent> <M-g> :cd %:h<cr>:FuzzyFinderTaggedFile<cr>
+noremap <silent> <M-b> :cd %:h<cr>:FuzzyFinderBuffer<cr>
+noremap <silent> <M-d> :cd %:h<cr>:FuzzyFinderDir<cr>
+noremap <silent> <M-m> :cd %:h<cr>:FuzzyFinderMruFile<cr>
+inoremap <silent> <M-f> <Esc>:cd %:h<cr>:FuzzyFinderFile<cr>
+inoremap <silent> <M-t> <Esc>:cd %:h<cr>:FuzzyFinderTag<cr>
 inoremap <silent> <M-g> <Esc>:FuzzyFinderTaggedFile<cr>
 inoremap <silent> <M-b> <Esc>:FuzzyFinderBuffer<cr>
 inoremap <silent> <M-d> <Esc>:FuzzyFinderDir<cr>
@@ -132,7 +132,7 @@ endfunction
 
 function! Ack(args)
     let grepprg_bak=&grepprg
-    set grepprg=ack\ -H\ --nocolor\ --nogroup
+    set grepprg=ack.pl\ -H\ --nocolor\ --nogroup
     execute "silent! grep " . a:args
     botright copen
     let &grepprg=grepprg_bak
