@@ -202,7 +202,7 @@ autocmd BufRead,BufEnter *.nfo set guifont=Terminal
 autocmd BufRead,BufEnter,BufNewFile *.sc set ic syntax=scheme tabstop=8 shiftwidth=8 autoindent comments=:; define=^\\s*(def\\k* formatoptions-=t iskeyword+=+,-,*,/,%,<,=,>,:,$,?,!,@-@,94 lisp
 autocmd BufRead blog.xml exe "normal jo\<CR>\<ESC>,id\<ESC>kkko"
 autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set expandtab ts=4 sw=4 cindent formatoptions=croq
-autocmd BufNewFile,BufRead,BufEnter *.boo setf boo 
+autocmd BufNewFile,BufRead,BufEnter *.boo,*.module setf boo 
 autocmd FileType mail set tw=72
 
 " :wq and :q
