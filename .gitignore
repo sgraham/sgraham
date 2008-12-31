@@ -112,3 +112,7 @@ worksheets/*
 .viminfo
 .xsession-errors
 xjam/*
+learnr/*
+matplotlib/*
+.wapi/*
+.dbus/*
