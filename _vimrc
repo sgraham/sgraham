@@ -30,9 +30,15 @@ set viminfo='50,\"1000,:0,n$HOME/_viminfo
 set updatetime=1000
 set previewheight=10
 set titlestring=%t\ %(%r\ %m%)\ %F
-set makeef=c:/tmp/vim##.err
-set backupdir=c:/tmp
-set directory=c:/tmp
+if has("unix")
+    set makeef=/tmp/vim##.err
+    set backupdir=/tmp
+    set directory=/tmp
+else
+    set makeef=c:/tmp/vim##.err
+    set backupdir=c:/tmp
+    set directory=c:/tmp
+endif
 set wildmenu
 set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
 
@@ -107,7 +113,12 @@ inoremap <silent> <M-g> <Esc>:FuzzyFinderTaggedFile<cr>
 inoremap <silent> <M-b> <Esc>:FuzzyFinderBuffer<cr>
 inoremap <silent> <M-d> <Esc>:FuzzyFinderDir<cr>
 inoremap <silent> <M-m> <Esc>:FuzzyFinderMruFile<cr>
-map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+
+if has("unix")
+    map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!nautilus %:p:h<CR>:endif<CR><CR> 
+else
+    map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+endif
 
 " current top-level form to clipboard
 map <silent> <F7> ma99[("+y%`a:let @+ .= "\n"<CR>
@@ -222,10 +233,15 @@ ab highets highest
 
 set gcr=a:block
 set guioptions=a
-set guifont=Lucida\ Console:h9:w5
-"depending on dpi and time of day (!)
-"set guifont=Consolas:h8
-"set guifont=Consolas:h10
+if has("unix")
+    set guifont=Monospace\ 9
+else
+    set guifont=Lucida\ Console:h9:w5
+    "depending on dpi and time of day (!)
+    "set guifont=Consolas:h8
+    "set guifont=Consolas:h10
+endif
+
 
 syntax on
 
