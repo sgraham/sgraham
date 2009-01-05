@@ -71,15 +71,15 @@ cmap <F1> <ESC>
 map <F1> <ESC>
 map <Del> :bd<CR>
 map <Ins> :A<CR>
+map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
+map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
 
 " project.vim
 let g:proj_flags="mstvcg"
 
 map ,sws :set list!<cr>
 
-map <F9> [(
-map <F10> ])
-nnoremap <silent> <F11> :YRShow<CR>
+nnoremap <silent> <F2> :YRShow<CR>
 map <F8> :cn<CR>zz
 map <S-F8> :cp<CR>zz
 map ,ev :e! $HOME/_vimrc<CR>
@@ -120,9 +120,6 @@ else
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
 endif
 
-" current top-level form to clipboard
-map <silent> <F7> ma99[("+y%`a:let @+ .= "\n"<CR>
-
 " for the wrap nazis
 map <silent> ,80 :call EightyToggle()<cr>
 function! EightyToggle()
@@ -150,36 +147,6 @@ function! Ack(args)
 endfunction
 
 command! -nargs=* -complete=file Ack call Ack(<q-args>)
-
-""" slime-y
-function! Send_to_Screen(text)
-  if !exists("g:screen_sessionname") || !exists("g:screen_windowname")
-    call Screen_Vars()
-  end
-  echo system("screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
-endfunction
-
-function! Screen_Session_Names(A,L,P)
-  return system("screen -ls | awk '/Attached/ {print $1}'")
-endfunction
-
-function! Screen_Vars()
-  if !exists("g:screen_sessionname") || !exists("g:screen_windowname")
-    let g:screen_sessionname = ""
-    let g:screen_windowname = "0"
-  end
-
-  let g:screen_sessionname = input("session name: ", "", "custom,Screen_Session_Names")
-  let g:screen_windowname = input("window name: ", g:screen_windowname)
-endfunction
-
-vmap <C-c><C-c> "ry :call Send_to_Screen(@r)<CR>
-nmap <C-c><C-c> vip<C-c><C-c>
-nmap <C-c>0 :call Send_to_Screen("0\x0d")<CR>
-
-nmap <C-c>v :call Screen_Vars()<CR>
-""" slime-y
-
 
 set gcr=a:blockCursor-blinkwait600-blinkoff700-blinkon600
 set go=a
@@ -216,6 +183,7 @@ autocmd BufRead blog.xml exe "normal jo\<CR>\<ESC>,id\<ESC>kkko"
 autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set expandtab ts=4 sw=4 cindent formatoptions=croq
 autocmd BufNewFile,BufRead,BufEnter *.boo,*.module setf boo 
 autocmd FileType mail set tw=72
+autocmd BufRead,BufNewFile,BufEnter *.lisp so ~/vimfiles/lisp/lisp.vim
 
 " :wq and :q
 cab Lwq wq
@@ -235,7 +203,7 @@ ab highets highest
 set gcr=a:block
 set guioptions=a
 if has("unix")
-    set guifont=Monospace\ 9
+    set guifont=Consolas\ 9
 else
     set guifont=Lucida\ Console:h9:w5
     "depending on dpi and time of day (!)

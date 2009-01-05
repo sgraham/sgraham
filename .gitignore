@@ -92,14 +92,6 @@ worksheets/*
 .gksu.lock
 .gtk-bookmarks
 .junglediskinstance
-.limp_bridge_channel-99.14437
-.limp_bridge_channel-cl-user.8644
-.limp_bridge_channel-main.6232
-.limp_bridge_channel-stuff.8686
-.limp_bridge_channel-stuff.8869
-.limp_bridge_channel-test.16366
-.limp_bridge_channel-test.6690
-.limp_bridge_channel-test.6881
 .mcoprc
 .nvidia-settings-rc
 .profile
@@ -115,3 +107,10 @@ learnr/*
 matplotlib/*
 .wapi/*
 .dbus/*
+.adobe/*
+.fontypython/*
+.gegl-0.0/*
+.gimp-2.6/*
+.opera/*
+.sane/*
+.tsclient/*
