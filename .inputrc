@@ -1,0 +1,6 @@
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+TAB: menu-complete
+"\e[Z": "\e-1\C-i"
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
