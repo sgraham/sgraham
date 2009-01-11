@@ -182,6 +182,7 @@ autocmd BufRead,BufEnter,BufNewFile *.sc set ic syntax=scheme tabstop=8 shiftwid
 autocmd BufRead blog.xml exe "normal jo\<CR>\<ESC>,id\<ESC>kkko"
 autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set expandtab ts=4 sw=4 cindent formatoptions=croq
 autocmd BufNewFile,BufRead,BufEnter *.boo,*.module setf boo 
+autocmd BufNewFile,BufRead,BufEnter *.ls setf lisp
 autocmd FileType mail set tw=72
 autocmd BufRead,BufNewFile,BufEnter *.lisp so ~/vimfiles/lisp/lisp.vim
 
