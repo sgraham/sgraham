@@ -31,10 +31,20 @@ nnoremap <buffer> <F7> :wa<cr>:call Lisp_eval_top_form()<CR>
 nnoremap <buffer> <silent> <C-F7> :call Screen_Vars()<cr>
 nnoremap <buffer> <silent> <S-F7> :call Lisp_eval_current_form()<CR>
 
+" debugger interactions
 nnoremap <buffer> <silent> <F12> :call Lisp_send_to_lisp("ABORT")<cr>
 nnoremap <buffer> <silent> <C-F12> :call Lisp_send_to_lisp("")<cr>
+nnoremap <buffer> <silent> <M-Down> :call Lisp_send_to_lisp("DOWN")<cr>
+nnoremap <buffer> <silent> <M-Up> :call Lisp_send_to_lisp("UP")<cr>
+nnoremap <buffer> <silent> <M-l> :call Lisp_send_to_lisp("LIST")<cr>
+nnoremap <buffer> <silent> <M-b> :call Lisp_send_to_lisp("BACKTRACE")<cr>
+nnoremap <buffer> <silent> <M-p> :call Lisp_send_to_lisp("PRINT")<cr>
+nnoremap <buffer> <silent> <M-a> :call Lisp_send_to_lisp("SOURCE 2")<cr>
+nnoremap <buffer> <silent> <M-s> :call Lisp_send_to_lisp("SOURCE 4")<cr>
+nnoremap <buffer> <silent> <M-d> :call Lisp_send_to_lisp("SOURCE 999")<cr>
+nnoremap <buffer> <silent> <M-e> :call Lisp_send_to_lisp("ERROR")<cr>
 
-nnoremap <buffer> <silent> <F11> :call Lisp_run_tests()<cr>
+nnoremap <buffer> <silent> <F11> :wa<cr>:call Lisp_run_tests()<cr>
 nnoremap <buffer> <silent> <C-F11> :call Lisp_toggle_to_from_tests()<cr>
 
 setlocal nocompatible nocursorline
