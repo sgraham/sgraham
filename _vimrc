@@ -20,6 +20,7 @@ set nojoinspaces
 set mousehide
 set listchars=tab:>-,trail:.,extends:>
 set shm=atI
+set modeline
 set incsearch
 set showmatch
 set complete=.,b,u,i
@@ -52,6 +53,7 @@ set tags+=c:/work/packages/euclideancombat/dev/src/tags
 set tags+=c:/code/packages/tags
 set tags+=c:/program\\\ files\\\ (x86)/microsoft\\\ visual\\\ studio\\\ 8/vc/tags
 set tags+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source
+set tags+=../tags,../../tags,../../../tags
 set path+=c:/work/packages/easharptest/dev/**
 set path+=c:/work/packages/easharp/dev/**
 set path+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source/**
@@ -184,7 +186,8 @@ autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set
 autocmd BufNewFile,BufRead,BufEnter *.boo,*.module setf boo 
 autocmd BufNewFile,BufRead,BufEnter *.ls setf lisp
 autocmd FileType mail set tw=72
-autocmd BufRead,BufNewFile,BufEnter *.lisp so ~/vimfiles/lisp/lisp.vim
+autocmd BufRead,BufNewFile,BufEnter *.lisp,*.clj so ~/vimfiles/lisp/lisp.vim
+autocmd BufRead,BufNewFile,BufEnter *.sk set ft=python ts=4 shiftwidth=4 expandtab
 
 " :wq and :q
 cab Lwq wq
@@ -230,3 +233,17 @@ if filereadable(expand("~/_vimrc.local"))
   source ~/_vimrc.local
 endif
 
+
+function! DoRope()
+    source ~/vimfiles/rope/ropevim/ropevim.vim
+    noremap <silent> <M-f> :RopeFindFile<cr>
+    inoremap <silent> <M-f> <Esc>:RopeFindFile<cr>
+    noremap <silent> <M-j> :RopeShowCalltip<cr>
+    inoremap <silent> <M-j> <Esc>:RopeShowCalltip<cr>
+    noremap <silent> <M-r> :RopeRename<cr>
+    inoremap <silent> <M-d> <Esc>:RopeRename<cr>
+    noremap <silent> <M-d> :RopeGotoDefinition<cr>
+    inoremap <silent> <M-r> <Esc>:RopeGotoDefinition<cr>
+endfunction
+let $PYTHONPATH.="/home/sgraham/vimfiles/rope/rope:/home/sgraham/vimfiles/rope/ropemode:/home/sgraham/vimfiles/rope/ropevim"
+autocmd BufRead,BufNewFile,BufEnter *.py call DoRope()
