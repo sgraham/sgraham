@@ -27,7 +27,7 @@ nnoremap <buffer> ,lf :call Lisp_send_to_lisp( "(load \"" . expand( "%:p" ) . "\
 nmap <buffer> ,o {%a(
 nmap <buffer> ,O {i<esc>(a(
 
-nnoremap <buffer> <silent> <F7> :wa<cr>:silent call Lisp_eval_top_form()<CR>
+nnoremap <buffer> <F7> :wa<cr>:call Lisp_eval_top_form()<CR>
 nnoremap <buffer> <silent> <C-F7> :call Screen_Vars()<cr>
 nnoremap <buffer> <silent> <S-F7> :call Lisp_eval_current_form()<CR>
 
@@ -181,7 +181,11 @@ function! Lisp_send_to_lisp(text)
   if !exists("g:screen_sessionname") || !exists("g:screen_windowname")
     call Screen_Vars()
   end
-  echo system("screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
+  if has("unix")
+    echo system("screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
+  else
+    echo system("\\cygwin\\bin\\screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
+  endif
 endfunction
 
 silent! function! Lisp_toggle_to_from_tests()
