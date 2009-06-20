@@ -75,6 +75,7 @@ map <Del> :bd<CR>
 map <Ins> :A<CR>
 map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
 map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
+nnoremap <silent> <ESC> :noh<CR><ESC>
 
 " project.vim
 let g:proj_flags="mstvcg"
@@ -98,7 +99,7 @@ map <silent> ,cd :cd %:h<cr>
 "imap ` <ESC>
 " i'd really prefer perforce.vim but i can never get it working right
 map <F1> :!p4 edit %<CR>
-noremap <silent> <ESC><ESC> :ccl<cr>
+"noremap <silent> <ESC><ESC> :ccl<cr>
 noremap <M-l> guiww
 noremap <M-u> gUiww
 noremap! <M-l> <Esc>guiw`]a
