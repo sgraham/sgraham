@@ -62,12 +62,9 @@ cmap <F1> <ESC>
 map <F1> <ESC>
 map <Del> :bd<CR>
 map <Ins> :A<CR>
-<<<<<<< HEAD:_vimrc
-=======
 map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
 map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
 nnoremap <silent> <ESC> :noh<CR><ESC>
->>>>>>> bf8e24ebb9b5b04364f301da5b662e22760f4113:_vimrc
 
 " project.vim
 let g:proj_flags="mstvcg"
