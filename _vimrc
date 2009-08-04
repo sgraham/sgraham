@@ -99,6 +99,7 @@ noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
 noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
 noremap <silent> <M-d> :FuzzyFinderDir<cr>
 map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+map <F12> :BufExplorer<cr>
 
 " for the wrap nazis
 "au BufWinEnter *.py,*.cpp,*.c,*.h,*.cs if &textwidth > 4
