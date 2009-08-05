@@ -199,5 +199,5 @@ function! DoRope()
     noremap <silent> <M-d> :RopeGotoDefinition<cr>
     inoremap <silent> <M-r> <Esc>:RopeGotoDefinition<cr>
 endfunction
-let $PYTHONPATH.="/home/sgraham/vimfiles/rope/rope:/home/sgraham/vimfiles/rope/ropemode:/home/sgraham/vimfiles/rope/ropevim"
-autocmd BufRead,BufNewFile,BufEnter *.py call DoRope()
+"let $PYTHONPATH.="/home/sgraham/vimfiles/rope/rope:/home/sgraham/vimfiles/rope/ropemode:/home/sgraham/vimfiles/rope/ropevim"
+"autocmd BufRead,BufNewFile,BufEnter *.py call DoRope()
