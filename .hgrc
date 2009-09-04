@@ -8,7 +8,7 @@ color =
 [ui]
 merge = meld
 editor = gvim -f
-username = sgraham
+username = Scott Graham <scott.hgrc@h4ck3r.net>
 
 [tortoisehg]
 editor = gvim
