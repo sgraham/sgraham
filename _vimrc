@@ -68,6 +68,7 @@ map <F12> :BufExplorer<cr>
 
 map ,sws :set list!<cr>
 
+map ,cd :cd %:p:h<cr>
 map <F9> [(
 map <F10> ])
 nnoremap <silent> <F11> :YRShow<CR>
@@ -95,7 +96,11 @@ noremap <silent> <M-t> :FuzzyFinderTag<cr>
 noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
 noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
 noremap <silent> <M-d> :FuzzyFinderDir<cr>
-map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+if has("unix")
+    map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+else
+    map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!nautilus %:p:h<CR>:endif<CR><CR> 
+endif
 map <F12> :BufExplorer<cr>
 
 " for the wrap nazis
@@ -181,7 +186,7 @@ augroup filetype
 augroup END
 
 gui
-set lines=100
+set lines=87
 
 colo darkblue
 
