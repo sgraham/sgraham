@@ -1,2 +1,2 @@
 @echo off
-gvim --servername VIMALT --remote-silent %*
+start gvim --servername VIMALT --remote-silent %*

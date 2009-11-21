@@ -151,6 +151,7 @@ autocmd BufRead,BufNewFile,BufEnter *.lisp,*.clj so ~/vimfiles/lisp/lisp.vim
 autocmd BufRead,BufNewFile,BufEnter *.sk set ft=python ts=4 shiftwidth=4 expandtab
 autocmd BufRead,BufNewFile,BufEnter *.j setf objj
 autocmd BufRead,BufNewFile,BufEnter *.arc setf arc 
+autocmd BufEnter * cd %:p:h
 
 " :wq and :q
 cab Lwq wq
