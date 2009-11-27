@@ -8,9 +8,15 @@ Recent/*
 Start Menu/*
 Templates/*
 ntuser*
-NTUSER.DAT
+NTUSER.DAT*
+desktop.ini
 NetHood/*
 SendTo/*
+AppData/*
+Contacts/*
+Documents/*
+Links/*
+Searches/*
 .ssh/*
 .subversion/*
 UserData/*

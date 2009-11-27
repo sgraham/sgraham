@@ -3,7 +3,7 @@ hgext.mq =
 ;hgext.inotify =
 hgext.convert=
 color =
-
+;histedit = 
 
 [ui]
 merge = meld
@@ -21,3 +21,7 @@ status.removed = red bold
 status.deleted = cyan bold
 status.unknown = blue bold
 status.ignored = black bold
+
+[defaults]
+qimport = --git
+qrefresh = --git

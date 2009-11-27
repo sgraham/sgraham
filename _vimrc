@@ -30,9 +30,8 @@ set viminfo='50,\"1000,:0,n$HOME/_viminfo
 set updatetime=1000
 set previewheight=10
 set titlestring=%t\ %(%r\ %m%)\ %F
-set makeef=\tmp\vim##.err
-set backupdir=/tmp
-set directory=/tmp
+set wildmenu
+set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
 
 "set tags+=c:/devkitPro/libnds/include/tags
 "set tags+=c:/code/twinisles/src/tags
@@ -60,14 +59,11 @@ map <Ins> :A<CR>
 map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
 map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
 nnoremap <silent> <ESC> :noh<CR><ESC>
-"cnoremap <silent> q<cr> :confirm q<cr>
-"cnoremap <silent> wq<cr> :confirm wq<cr>
-
-" project.vim
-let g:proj_flags="mstvcg"
+map <F12> :BufExplorer<cr>
 
 map ,sws :set list!<cr>
 
+map ,cd :cd %:p:h<cr>
 map <F9> [(
 map <F10> ])
 nnoremap <silent> <F11> :YRShow<CR>
@@ -96,7 +92,11 @@ noremap <silent> <M-t> :FuzzyFinderTag<cr>
 noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
 noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
 noremap <silent> <M-d> :FuzzyFinderDir<cr>
-map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+if has("unix")
+    map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+else
+    map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!nautilus %:p:h<CR>:endif<CR><CR> 
+endif
 map <F12> :BufExplorer<cr>
 
 " for the wrap nazis
@@ -145,6 +145,9 @@ autocmd BufNewFile,BufRead,BufEnter *.ls setf lisp
 autocmd FileType mail set tw=72
 autocmd BufRead,BufNewFile,BufEnter *.lisp,*.clj so ~/vimfiles/lisp/lisp.vim
 autocmd BufRead,BufNewFile,BufEnter *.sk set ft=python ts=4 shiftwidth=4 expandtab
+autocmd BufRead,BufNewFile,BufEnter *.j setf objj
+autocmd BufRead,BufNewFile,BufEnter *.arc setf arc 
+autocmd BufEnter * cd %:p:h
 
 " :wq and :q
 cab Lwq wq
@@ -162,11 +165,15 @@ ab typdef typedef
 ab highets highest
 
 set gcr=a:block
-set guioptions=a
-set guifont=Lucida\ Console:h9:w5
-"depending on dpi and time of day (!)
-"set guifont=Consolas:h8
-"set guifont=Consolas:h10
+set guioptions=ai
+if has("unix")
+    set guifont=Consolas\ 9
+else
+    set guifont=Lucida\ Console:h9:w5
+    "depending on dpi and time of day (!)
+    "set guifont=Consolas:h8
+    "set guifont=Consolas:h10
+endif
 
 syntax on
 
@@ -177,7 +184,7 @@ augroup filetype
 augroup END
 
 gui
-set lines=100
+set lines=87
 
 colo darkblue
 
@@ -192,16 +199,16 @@ function! ConfirmQuit()
     endif
 endfu
 
-function! DoRope()
-    source ~/vimfiles/rope/ropevim/ropevim.vim
-    noremap <silent> <M-f> :RopeFindFile<cr>
-    inoremap <silent> <M-f> <Esc>:RopeFindFile<cr>
-    noremap <silent> <M-j> :RopeShowCalltip<cr>
-    inoremap <silent> <M-j> <Esc>:RopeShowCalltip<cr>
-    noremap <silent> <M-r> :RopeRename<cr>
-    inoremap <silent> <M-d> <Esc>:RopeRename<cr>
-    noremap <silent> <M-d> :RopeGotoDefinition<cr>
-    inoremap <silent> <M-r> <Esc>:RopeGotoDefinition<cr>
-endfunction
+"function! DoRope()
+    "source ~/vimfiles/rope/ropevim/ropevim.vim
+    "noremap <silent> <M-f> :RopeFindFile<cr>
+    "inoremap <silent> <M-f> <Esc>:RopeFindFile<cr>
+    "noremap <silent> <M-j> :RopeShowCalltip<cr>
+    "inoremap <silent> <M-j> <Esc>:RopeShowCalltip<cr>
+    "noremap <silent> <M-r> :RopeRename<cr>
+    "inoremap <silent> <M-d> <Esc>:RopeRename<cr>
+    "noremap <silent> <M-d> :RopeGotoDefinition<cr>
+    "inoremap <silent> <M-r> <Esc>:RopeGotoDefinition<cr>
+"endfunction
 "let $PYTHONPATH.="/home/sgraham/vimfiles/rope/rope:/home/sgraham/vimfiles/rope/ropemode:/home/sgraham/vimfiles/rope/ropevim"
 "autocmd BufRead,BufNewFile,BufEnter *.py call DoRope()
