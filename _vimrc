@@ -37,14 +37,9 @@ set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
 "set tags+=c:/code/twinisles/src/tags
 "set tags+=c:\\Program\\\ Files\\\Microsoft\\\ Visual\\\ Studio\\\ .NET\\Vc7\\PlatformSDK\\Include\\tags
 "set path+=c:\\code\\twinisles\\src\\**
-set tags+=c:/work/packages/easharptest/dev/src/tags
-set tags+=c:/work/packages/easharp/dev/runtime/tags
-set tags+=c:/work/packages/euclideancombat/dev/src/tags
-set tags+=c:/code/packages/tags
-set tags+=c:/program\\\ files\\\ (x86)/microsoft\\\ visual\\\ studio\\\ 8/vc/tags
+set tags+=c:/work/packages/easharptest/dev/tags
+set tags+=c:/work/packages/easharp/dev/tags
 set tags+=../tags,../../tags,../../../tags,../../../../tags,../../../../../tags
-set path+=c:/work/packages/easharptest/dev/src
-set path+=c:/work/packages/easharp/dev/runtime/**
 
 map L $
 map H ^
@@ -82,6 +77,7 @@ map ,i0 dO#if 0<CR>#endif<ESC>kp
 map ,u0 %dddd
 map ,ld :silent! !latex %<CR>:silent! !cmd /c start %:r.dvi<CR>
 map ,lp :silent! !pdflatex %:r<CR>:silent! !cmd /c start %:r.pdf<CR>
+map ,cd :cd %:p:h<cr>
 map ,, O//--------------------------------------------<esc>H:s/\s*//<cr>
 "imap ` <ESC>
 " i'd really prefer perforce.vim but i can never get it working right
@@ -150,6 +146,8 @@ autocmd FileType mail set tw=72
 autocmd BufRead,BufNewFile,BufEnter *.lisp,*.clj so ~/vimfiles/lisp/lisp.vim
 autocmd BufRead,BufNewFile,BufEnter *.sk set ft=python ts=4 shiftwidth=4 expandtab
 autocmd BufRead,BufNewFile,BufEnter *.j setf objj
+autocmd BufRead,BufNewFile,BufEnter *.arc setf arc 
+autocmd BufEnter * cd %:p:h
 
 " :wq and :q
 cab Lwq wq
@@ -193,17 +191,3 @@ colo darkblue
 if filereadable(expand("~/_vimrc.local"))
   source ~/_vimrc.local
 endif
-
-"function! DoRope()
-    "source ~/vimfiles/rope/ropevim/ropevim.vim
-    "noremap <silent> <M-f> :RopeFindFile<cr>
-    "inoremap <silent> <M-f> <Esc>:RopeFindFile<cr>
-    "noremap <silent> <M-j> :RopeShowCalltip<cr>
-    "inoremap <silent> <M-j> <Esc>:RopeShowCalltip<cr>
-    "noremap <silent> <M-r> :RopeRename<cr>
-    "inoremap <silent> <M-d> <Esc>:RopeRename<cr>
-    "noremap <silent> <M-d> :RopeGotoDefinition<cr>
-    "inoremap <silent> <M-r> <Esc>:RopeGotoDefinition<cr>
-"endfunction
-"let $PYTHONPATH.="/home/sgraham/vimfiles/rope/rope:/home/sgraham/vimfiles/rope/ropemode:/home/sgraham/vimfiles/rope/ropevim"
-"autocmd BufRead,BufNewFile,BufEnter *.py call DoRope()
