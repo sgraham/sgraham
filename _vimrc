@@ -194,7 +194,6 @@ if filereadable(expand("~/_vimrc.local"))
   source ~/_vimrc.local
 endif
 
-
 "function! DoRope()
     "source ~/vimfiles/rope/ropevim/ropevim.vim
     "noremap <silent> <M-f> :RopeFindFile<cr>
