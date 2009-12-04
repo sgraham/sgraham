@@ -1,2 +1,2 @@
 @echo off
-start gvim --servername MAINVIM --remote-silent-wait %*
+start gvim --servername MAINVIM --remote-silent %*
