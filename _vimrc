@@ -39,7 +39,7 @@ set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
 "set path+=c:\\code\\twinisles\\src\\**
 set tags+=c:/work/packages/easharptest/dev/tags
 set tags+=c:/work/packages/easharp/dev/tags
-set tags+=../tags,../../tags,../../../tags,../../../../tags,../../../../../tags
+set tags+=../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags
 
 map L $
 map H ^
@@ -93,9 +93,9 @@ noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
 noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
 noremap <silent> <M-d> :FuzzyFinderDir<cr>
 if has("unix")
-    map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
-else
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!nautilus %:p:h<CR>:endif<CR><CR> 
+else
+    map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
 endif
 map <F12> :BufExplorer<cr>
 
