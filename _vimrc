@@ -191,24 +191,3 @@ colo darkblue
 if filereadable(expand("~/_vimrc.local"))
   source ~/_vimrc.local
 endif
-
-function! ConfirmQuit()
-    let l:confirmed = confirm("Do you really want to quit?", "&Yes\n&No", 2)
-    if l:confirmed == 1
-        quit
-    endif
-endfu
-
-"function! DoRope()
-    "source ~/vimfiles/rope/ropevim/ropevim.vim
-    "noremap <silent> <M-f> :RopeFindFile<cr>
-    "inoremap <silent> <M-f> <Esc>:RopeFindFile<cr>
-    "noremap <silent> <M-j> :RopeShowCalltip<cr>
-    "inoremap <silent> <M-j> <Esc>:RopeShowCalltip<cr>
-    "noremap <silent> <M-r> :RopeRename<cr>
-    "inoremap <silent> <M-d> <Esc>:RopeRename<cr>
-    "noremap <silent> <M-d> :RopeGotoDefinition<cr>
-    "inoremap <silent> <M-r> <Esc>:RopeGotoDefinition<cr>
-"endfunction
-"let $PYTHONPATH.="/home/sgraham/vimfiles/rope/rope:/home/sgraham/vimfiles/rope/ropemode:/home/sgraham/vimfiles/rope/ropevim"
-"autocmd BufRead,BufNewFile,BufEnter *.py call DoRope()
