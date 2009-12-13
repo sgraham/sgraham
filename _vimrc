@@ -60,8 +60,6 @@ map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
 map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
 nnoremap <silent> <ESC> :noh<CR><ESC>
 map <F12> :BufExplorer<cr>
-nmap <Tab> v>
-nmap <S-Tab> v<
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 
