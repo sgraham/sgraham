@@ -3,7 +3,6 @@ set shiftwidth=4
 set softtabstop=4
 set tw=78
 set columns=132
-set lines=200
 set expandtab
 set noerrorbells
 set bs=2
@@ -166,7 +165,6 @@ autocmd BufReadPost quickfix :nm <CR> <Tab>zz
 "autocmd BufReadPost quickfix :g/Binary\ file.*matches/:.d
 "autocmd BufReadPost quickfix :g/\\fifa\\ps2\\src\/tags/:d
 "autocmd BufReadPost quickfix :g/\\fifa\\cmn\\src\/tags/:d
-autocmd GUIEnter * winpos 525 0
 autocmd BufRead,BufEnter *.goo set lisp tabstop=2 shiftwidth=2
 autocmd BufRead,BufEnter *.sculpt set lisp tabstop=2 shiftwidth=2 expandtab
 autocmd BufRead,BufEnter *.scm set expandtab lisp tabstop=8 shiftwidth=8 lispwords+=module lispwords+=with-output-to-file lispwords+=define-macro
@@ -222,11 +220,9 @@ augroup filetype
 augroup END
 
 gui
-set lines=100
 
 colo darkblue
 
 if filereadable(expand("~/_vimrc.local"))
   source ~/_vimrc.local
 endif
-
