@@ -19,25 +19,16 @@ set nojoinspaces
 set mousehide
 set listchars=tab:>-,trail:.,extends:>
 set shm=atI
+set modeline
 set incsearch
 set showmatch
 set complete=.,b,u,i
 set ruler
 set gdefault
-let g:clj_highlight_builtins=1
 set viminfo='50,\"1000,:0,n$HOME/_viminfo
 set updatetime=1000
 set previewheight=10
 set titlestring=%t\ %(%r\ %m%)\ %F
-if has("unix")
-    set makeef=/tmp/vim##.err
-    set backupdir=/tmp
-    set directory=/tmp
-else
-    set makeef=c:/tmp/vim##.err
-    set backupdir=c:/tmp
-    set directory=c:/tmp
-endif
 set wildmenu
 set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
 
@@ -45,15 +36,9 @@ set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
 "set tags+=c:/code/twinisles/src/tags
 "set tags+=c:\\Program\\\ Files\\\Microsoft\\\ Visual\\\ Studio\\\ .NET\\Vc7\\PlatformSDK\\Include\\tags
 "set path+=c:\\code\\twinisles\\src\\**
-set tags+=c:/work/packages/easharptest/dev/src/tags
-set tags+=c:/work/packages/easharp/dev/runtime/tags
-set tags+=c:/work/packages/euclideancombat/dev/src/tags
-set tags+=c:/code/packages/tags
-set tags+=c:/program\\\ files\\\ (x86)/microsoft\\\ visual\\\ studio\\\ 8/vc/tags
-set tags+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source
-set path+=c:/work/packages/easharptest/dev/**
-set path+=c:/work/packages/easharp/dev/**
-set path+=D:/nhl/nhl10/easharp-dev/packages/internal/nhl/dev/source/**
+set tags+=c:/work/packages/easharptest/dev/tags
+set tags+=c:/work/packages/easharp/dev/tags
+set tags+=../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags
 
 map L $
 map H ^
@@ -72,13 +57,17 @@ map <Del> :bd<CR>
 map <Ins> :A<CR>
 map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
 map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
-
-" project.vim
-let g:proj_flags="mstvcg"
+nnoremap <silent> <ESC> :noh<CR><ESC>
+map <F12> :BufExplorer<cr>
+vmap <Tab> >gv
+vmap <S-Tab> <gv
 
 map ,sws :set list!<cr>
 
-nnoremap <silent> <F2> :YRShow<CR>
+map ,cd :cd %:p:h<cr>
+map <F9> [(
+map <F10> ])
+nnoremap <silent> <F11> :YRShow<CR>
 map <F8> :cn<CR>zz
 map <S-F8> :cp<CR>zz
 map ,ev :e! $HOME/_vimrc<CR>
@@ -89,63 +78,34 @@ map ,i0 dO#if 0<CR>#endif<ESC>kp
 map ,u0 %dddd
 map ,ld :silent! !latex %<CR>:silent! !cmd /c start %:r.dvi<CR>
 map ,lp :silent! !pdflatex %:r<CR>:silent! !cmd /c start %:r.pdf<CR>
-map ,xt :silent! !xelatex %:r<CR>:silent! !cmd /c start %:r.pdf<CR>
+map ,cd :cd %:p:h<cr>
 map ,, O//--------------------------------------------<esc>H:s/\s*//<cr>
-map <silent> ,cd :cd %:h<cr>
 "imap ` <ESC>
 " i'd really prefer perforce.vim but i can never get it working right
 map <F1> :!p4 edit %<CR>
-noremap <silent> <ESC><ESC> :ccl<cr>
+"noremap <silent> <ESC><ESC> :ccl<cr>
 noremap <M-l> guiww
 noremap <M-u> gUiww
 noremap! <M-l> <Esc>guiw`]a
 noremap! <M-u> <Esc>gUiw`]a
-noremap <silent> <M-f> :cd %:h<cr>:FuzzyFinderFile<cr>
-noremap <silent> <M-t> :cd %:h<cr>:FuzzyFinderTag<cr>
-noremap <silent> <M-g> :cd %:h<cr>:FuzzyFinderTaggedFile<cr>
-noremap <silent> <M-b> :cd %:h<cr>:FuzzyFinderBuffer<cr>
-noremap <silent> <M-d> :cd %:h<cr>:FuzzyFinderDir<cr>
-noremap <silent> <M-m> :cd %:h<cr>:FuzzyFinderMruFile<cr>
-inoremap <silent> <M-f> <Esc>:cd %:h<cr>:FuzzyFinderFile<cr>
-inoremap <silent> <M-t> <Esc>:cd %:h<cr>:FuzzyFinderTag<cr>
-inoremap <silent> <M-g> <Esc>:FuzzyFinderTaggedFile<cr>
-inoremap <silent> <M-b> <Esc>:FuzzyFinderBuffer<cr>
-inoremap <silent> <M-d> <Esc>:FuzzyFinderDir<cr>
-inoremap <silent> <M-m> <Esc>:FuzzyFinderMruFile<cr>
-
+noremap <silent> <M-f> :FuzzyFinderFile<cr>
+noremap <silent> <M-t> :FuzzyFinderTag<cr>
+noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
+noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
+noremap <silent> <M-d> :FuzzyFinderDir<cr>
 if has("unix")
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!nautilus %:p:h<CR>:endif<CR><CR> 
 else
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
 endif
+map <F12> :BufExplorer<cr>
 
 " for the wrap nazis
-map <silent> ,80 :call EightyToggle()<cr>
-function! EightyToggle()
-    if exists("w:m1")
-        call matchdelete(w:m1)
-        call matchdelete(w:m2)
-        unlet w:m1
-        unlet w:m2
-    else
-        if &textwidth > 4
-            let w:m1=matchadd('MatchParen', printf('\%%<%dv.\%%>%dv', &textwidth+1, &textwidth-4), -1)
-            let w:m2=matchadd('ErrorMsg', printf('\%%>%dv.\+', &textwidth), -1)
-        endif
-    endif
-endfunction
-function! EightyOff()
-endfunction
+"au BufWinEnter *.py,*.cpp,*.c,*.h,*.cs if &textwidth > 4
+"\ | let w:m1=matchadd('MatchParen', printf('\%%<%dv.\%%>%dv', &textwidth+1, &textwidth-4), -1)
+"\ | let w:m2=matchadd('ErrorMsg', printf('\%%>%dv.\+', &textwidth), -1)
+"\ | endif
 
-function! Ack(args)
-    let grepprg_bak=&grepprg
-    set grepprg=ack.pl\ -H\ --nocolor\ --nogroup
-    execute "silent! grep " . a:args
-    botright copen
-    let &grepprg=grepprg_bak
-endfunction
-
-command! -nargs=* -complete=file Ack call Ack(<q-args>)
 
 set gcr=a:blockCursor-blinkwait600-blinkoff700-blinkon600
 set go=a
@@ -179,10 +139,15 @@ autocmd BufRead,BufEnter *.nfo set guifont=Terminal
 autocmd BufRead,BufEnter,BufNewFile *.sc set ic syntax=scheme tabstop=8 shiftwidth=8 autoindent comments=:; define=^\\s*(def\\k* formatoptions-=t iskeyword+=+,-,*,/,%,<,=,>,:,$,?,!,@-@,94 lisp
 autocmd BufRead blog.xml exe "normal jo\<CR>\<ESC>,id\<ESC>kkko"
 autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set expandtab ts=4 sw=4 cindent formatoptions=croq
+autocmd BufRead,BufNewFile,BufEnter *.json set ft=json
 autocmd BufNewFile,BufRead,BufEnter *.boo,*.module setf boo 
 autocmd BufNewFile,BufRead,BufEnter *.ls setf lisp
 autocmd FileType mail set tw=72
-autocmd BufRead,BufNewFile,BufEnter *.lisp so ~/vimfiles/lisp/lisp.vim
+autocmd BufRead,BufNewFile,BufEnter *.lisp,*.clj so ~/vimfiles/lisp/lisp.vim
+autocmd BufRead,BufNewFile,BufEnter *.sk set ft=python ts=4 shiftwidth=4 expandtab
+autocmd BufRead,BufNewFile,BufEnter *.j setf objj
+autocmd BufRead,BufNewFile,BufEnter *.arc setf arc 
+autocmd BufEnter * cd %:p:h
 
 " :wq and :q
 cab Lwq wq
@@ -200,7 +165,7 @@ ab typdef typedef
 ab highets highest
 
 set gcr=a:block
-set guioptions=a
+set guioptions=ai
 if has("unix")
     set guifont=Consolas\ 9
 else
@@ -209,7 +174,6 @@ else
     "set guifont=Consolas:h8
     "set guifont=Consolas:h10
 endif
-
 
 syntax on
 
@@ -220,6 +184,7 @@ augroup filetype
 augroup END
 
 gui
+set lines=87
 
 colo darkblue
 
