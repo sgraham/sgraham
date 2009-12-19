@@ -184,10 +184,9 @@ augroup filetype
 augroup END
 
 gui
-set lines=87
 
 colo darkblue
 
 if filereadable(expand("~/_vimrc.local"))
-  source ~/_vimrc.local
+    source ~/_vimrc.local
 endif
