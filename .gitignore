@@ -92,7 +92,6 @@ worksheets/*
 .Torrent Episode Downloader/*
 .appcfg_cookies
 .bash_logout
-.bashrc
 .dmrc
 .esd_auth
 .gksu.lock
