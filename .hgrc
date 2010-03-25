@@ -4,6 +4,7 @@ hgext.mq =
 hgext.convert=
 color =
 ;histedit = 
+;hgext.hgshelve=
 
 [ui]
 merge = meld
