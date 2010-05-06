@@ -3,6 +3,7 @@ set shiftwidth=4
 set softtabstop=4
 set tw=78
 set columns=132
+set lines=200
 set expandtab
 set noerrorbells
 set bs=2
@@ -76,8 +77,13 @@ map g, [[/^[ \t]*$<CR>O
 map ,q /\*\/<CR>o<ESC>?\/\*<CR>O<ESC>jgqapdd??<CR>kdd
 map ,i0 dO#if 0<CR>#endif<ESC>kp
 map ,u0 %dddd
-map ,ld :silent! !latex %<CR>:silent! !cmd /c start %:r.dvi<CR>
-map ,lp :silent! !pdflatex %:r<CR>:silent! !cmd /c start %:r.pdf<CR>
+if has("unix")
+    map ,ld :!latex %<CR>:!gnome-open %:r.dvi<CR>
+    map ,lp :!pdflatex %:r<CR>:!gnome-open %:r.pdf<CR>
+else
+    map ,ld :!latex %<CR>:!cmd /c start %:r.dvi<CR>
+    map ,lp :!pdflatex %:r<CR>:!cmd /c start %:r.pdf<CR>
+endif
 map ,cd :cd %:p:h<cr>
 map ,, O//--------------------------------------------<esc>H:s/\s*//<cr>
 "imap ` <ESC>
@@ -125,6 +131,7 @@ autocmd BufReadPost quickfix :nm <CR> <Tab>zz
 "autocmd BufReadPost quickfix :g/Binary\ file.*matches/:.d
 "autocmd BufReadPost quickfix :g/\\fifa\\ps2\\src\/tags/:d
 "autocmd BufReadPost quickfix :g/\\fifa\\cmn\\src\/tags/:d
+autocmd GUIEnter * winpos 525 0
 autocmd BufRead,BufEnter *.goo set lisp tabstop=2 shiftwidth=2
 autocmd BufRead,BufEnter *.sculpt set lisp tabstop=2 shiftwidth=2 expandtab
 autocmd BufRead,BufEnter *.scm set expandtab lisp tabstop=8 shiftwidth=8 lispwords+=module lispwords+=with-output-to-file lispwords+=define-macro
@@ -147,7 +154,9 @@ autocmd BufRead,BufNewFile,BufEnter *.lisp,*.clj so ~/vimfiles/lisp/lisp.vim
 autocmd BufRead,BufNewFile,BufEnter *.sk set ft=python ts=4 shiftwidth=4 expandtab
 autocmd BufRead,BufNewFile,BufEnter *.j setf objj
 autocmd BufRead,BufNewFile,BufEnter *.arc setf arc 
-autocmd BufEnter * cd %:p:h
+autocmd BufRead,BufNewFile,BufEnter *.go setf go 
+autocmd BufRead,BufNewFile,BufEnter *.markdown set tw=72
+"autocmd BufEnter * cd %:p:h
 
 " :wq and :q
 cab Lwq wq
@@ -184,9 +193,10 @@ augroup filetype
 augroup END
 
 gui
+set lines=87
 
 colo darkblue
 
 if filereadable(expand("~/_vimrc.local"))
-    source ~/_vimrc.local
+  source ~/_vimrc.local
 endif

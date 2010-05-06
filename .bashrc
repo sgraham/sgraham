@@ -27,6 +27,11 @@ case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
 
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_colored_prompt=yes
+
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
@@ -86,11 +91,9 @@ export P4CONFIG=.p4config
 export HGEDITOR=/home/sgraham/hgeditor
 alias p4addr='find -type f | p4 -x - add'
 
-export GOROOT=$HOME/go
-export GOARCH=386
+export GOROOT=$HOME/Desktop/3rdparty/go
+export GOARCH=amd64
 export GOOS=linux
-export PATH=${PATH}:/home/sgraham/.cabal/bin/
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -98,5 +101,6 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+export PATH=${PATH}:/home/sgraham/bin
 export PATH=${PATH}:/home/sgraham/Desktop/android-sdk-linux_x86-1.5_r2/tools
 export PATH=${PATH}:/home/sgraham/depot_tools
