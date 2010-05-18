@@ -55,19 +55,25 @@ imap <F1> <ESC>
 cmap <F1> <ESC>
 map <F1> <ESC>
 map <Del> :bd<CR>
-map <Ins> :A<CR>
+nmap <Del> <ESC>:bd<CR>
+map <Ins> c
+nmap <Ins> <ESC>c
 map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
 map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
 nnoremap <silent> <ESC> :noh<CR><ESC>
 map <F12> :BufExplorer<cr>
+map <F9> :BufExplorer<cr>
 vmap <Tab> >gv
 vmap <S-Tab> <gv
+imap <C-J> 
+map <C-S-Up> :topleft sf 
+map <C-S-Down> :botright sf 
+map <C-Up> :topleft new<cr>
+map <C-Down> :botright new<cr>
 
 map ,sws :set list!<cr>
 
 map ,cd :cd %:p:h<cr>
-map <F9> [(
-map <F10> ])
 nnoremap <silent> <F11> :YRShow<CR>
 map <F8> :cn<CR>zz
 map <S-F8> :cp<CR>zz
