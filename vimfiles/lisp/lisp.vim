@@ -1,11 +1,6 @@
 " taken from Limp: http://mikael.jansson.be/hacking/limp/docs/
 " It did a bunch of stuff that I didn't like, so it's a hacked up version.
 
-" Format Current:     reindent/format
-" Format Top:    
-nnoremap <buffer> ,fc [(=%`'
-nnoremap <buffer> ,ft 99[(=%`'
-
 " next/prev
 nnoremap <buffer> <silent> ( :call Sexp_Previous()<CR>
 nnoremap <buffer> <silent> ) :call Sexp_Next()<CR>
@@ -24,8 +19,8 @@ nnoremap <buffer> <silent> ,hd :call Lisp_send_to_lisp("(describe '".expand("<cw
 nnoremap <buffer> ,lf :call Lisp_send_to_lisp( "(load \"" . expand( "%:p" ) . "\")")<cr>
 
 " open new line before/after current sexp
-nmap <buffer> ,o {%a(
-nmap <buffer> ,O {i<esc>(a(
+nmap <buffer> ,o {%a()<esc>==a
+nmap <buffer> ,O {i<esc>(a()<esc>==a
 
 nnoremap <buffer> <F7> :wa<cr>:call Lisp_eval_top_form()<CR>
 nnoremap <buffer> <silent> <C-F7> :call Screen_Vars()<cr>
@@ -44,6 +39,10 @@ nnoremap <buffer> <silent> <M-s> :call Lisp_send_to_lisp("SOURCE 4")<cr>
 nnoremap <buffer> <silent> <M-d> :call Lisp_send_to_lisp("SOURCE 999")<cr>
 nnoremap <buffer> <silent> <M-e> :call Lisp_send_to_lisp("ERROR")<cr>
 
+nnoremap <buffer> <silent> ! :call Lisp_close_top_form()<cr>
+
+nnoremap <buffer> <silent> <Tab> 999[(=%`'
+
 nnoremap <buffer> <silent> <F11> :wa<cr>:call Lisp_run_tests()<cr>
 nnoremap <buffer> <silent> <C-F11> :call Lisp_toggle_to_from_tests()<cr>
 
@@ -52,6 +51,7 @@ setlocal lisp syntax=lisp
 setlocal ls=2 bs=2 si et sw=2 ts=2 tw=0 
 setlocal iskeyword=&,*,+,45,/,48-57,:,<,=,>,@,A-Z,a-z,_
 setlocal cpoptions-=mp
+setlocal lispwords+=define-test
  
 " This allows gf and :find to work. Fix path to your needs
 setlocal suffixesadd=.lisp,cl path=/home/sgraham/**
@@ -164,6 +164,36 @@ function! Lisp_eval_top_form()
   call Lisp_goto_pos( p )
 endfunction
 
+function! Lisp_close_top_form()
+    " save position
+    let origp = Lisp_get_pos()
+
+    while 1
+        " get start of top-level
+        exec "normal! 99[("
+        let startp = Lisp_get_pos()
+
+        " get current end of top-level
+        call Lisp_goto_pos(origp)
+        exec "normal! 99])"
+        let curendp = Lisp_get_pos()
+        exec "normal! %"
+        let matchedfromend = Lisp_get_pos()
+        exec "normal! %"
+        
+        " if the end matches the start, we're done
+        if matchedfromend == startp
+            break
+        endif
+
+        " otherwise, add a ) and continue
+        exec "normal! a)\<Esc>"
+
+    endwhile
+
+    " restore cursor pos
+    call Lisp_goto_pos(origp)
+endfunction
 
 function! Lisp_eval_current_form()
   " save position
