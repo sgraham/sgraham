@@ -22,7 +22,7 @@ nnoremap <buffer> ,lf :call Lisp_send_to_lisp( "(load \"" . expand( "%:p" ) . "\
 nmap <buffer> ,o {%a()<esc>==a
 nmap <buffer> ,O {i<esc>(a()<esc>==a
 
-nnoremap <buffer> <F7> :wa<cr>:call Lisp_eval_top_form()<CR>
+nnoremap <buffer> <silent> <F7> :wa<cr>:call Lisp_eval_top_form()<CR><CR>
 nnoremap <buffer> <silent> <C-F7> :call Screen_Vars()<cr>
 nnoremap <buffer> <silent> <S-F7> :call Lisp_eval_current_form()<CR>
 
@@ -157,8 +157,11 @@ function! Lisp_eval_top_form()
   " save position
   let p = Lisp_get_pos()
 
-  silent! exec "normal! 99[("
-  call Lisp_send_to_lisp( Lisp_yank( "%" ) )
+  silent! exec "normal! 999[("
+
+  let tmpfile = tempname()
+  call writefile(split(Lisp_yank("%"), "\n"), tmpfile)
+  call Lisp_send_to_lisp("(load \"" . tmpfile . "\")\n")
 
   " fix cursor position, in case of error below
   call Lisp_goto_pos( p )
@@ -212,7 +215,7 @@ function! Lisp_send_to_lisp(text)
     call Screen_Vars()
   end
   if has("unix")
-    echo system("screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
+    echo system("screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
   else
     echo system("\\cygwin\\bin\\screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
   endif

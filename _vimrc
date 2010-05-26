@@ -62,7 +62,7 @@ map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
 map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
 nnoremap <silent> <ESC> :noh<CR><ESC>
 map <F12> :BufExplorer<cr>
-map <F9> :BufExplorer<cr>
+map <F4> :BufExplorer<cr>
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 imap <C-J> 
@@ -162,7 +162,7 @@ autocmd BufRead,BufNewFile,BufEnter *.j setf objj
 autocmd BufRead,BufNewFile,BufEnter *.arc setf arc 
 autocmd BufRead,BufNewFile,BufEnter *.go setf go 
 autocmd BufRead,BufNewFile,BufEnter *.markdown set tw=72
-"autocmd BufEnter * cd %:p:h
+autocmd BufEnter * cd %:p:h
 
 " :wq and :q
 cab Lwq wq
