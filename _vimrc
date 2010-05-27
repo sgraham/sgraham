@@ -63,6 +63,7 @@ map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
 nnoremap <silent> <ESC> :noh<CR><ESC>
 map <F12> :BufExplorer<cr>
 map <F4> :BufExplorer<cr>
+map <F6> :Bgrep 
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 imap <C-J> 
