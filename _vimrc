@@ -165,6 +165,9 @@ autocmd BufRead,BufNewFile,BufEnter *.j setf objj
 autocmd BufRead,BufNewFile,BufEnter *.arc setf arc 
 autocmd BufRead,BufNewFile,BufEnter *.go setf go 
 autocmd BufRead,BufNewFile,BufEnter *.markdown set tw=72
+autocmd BufRead,BufNewFile,BufEnter *.cdb setf xml
+autocmd BufRead,BufNewFile,BufEnter *.hx setf haxe
+
 autocmd BufEnter * cd %:p:h
 
 " :wq and :q
