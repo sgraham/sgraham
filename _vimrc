@@ -108,8 +108,10 @@ noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
 noremap <silent> <M-d> :FuzzyFinderDir<cr>
 if has("unix")
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!nautilus %:p:h<CR>:endif<CR><CR> 
+    map <silent> <S-F5> :if expand("%:p:h") != ""<CR>:!gnome-terminal %:p:h<CR>:endif<CR><CR> 
 else
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+    map <silent> <S-F5> :if expand("%:p:h") != ""<CR>:!start cmd.exe /k cd %:p:h<CR>:endif<CR><CR> 
 endif
 map <F12> :BufExplorer<cr>
 
