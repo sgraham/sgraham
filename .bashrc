@@ -87,9 +87,10 @@ export HGEDITOR=/home/sgraham/hgeditor
 alias p4addr='find -type f | p4 -x - add'
 
 export GOROOT=$HOME/go
-export GOARCH=386
+export GOARCH=amd64
 export GOOS=linux
-export PATH=${PATH}:/home/sgraham/.cabal/bin/
+export GOBIN=$HOME/bin
+export PATH=${PATH}:$GOBIN
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
