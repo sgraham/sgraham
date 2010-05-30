@@ -1,11 +1,6 @@
 " taken from Limp: http://mikael.jansson.be/hacking/limp/docs/
 " It did a bunch of stuff that I didn't like, so it's a hacked up version.
 
-" Format Current:     reindent/format
-" Format Top:    
-nnoremap <buffer> ,fc [(=%`'
-nnoremap <buffer> ,ft 99[(=%`'
-
 " next/prev
 nnoremap <buffer> <silent> ( :call Sexp_Previous()<CR>
 nnoremap <buffer> <silent> ) :call Sexp_Next()<CR>
@@ -23,17 +18,20 @@ nnoremap <buffer> <silent> ,hd :call Lisp_send_to_lisp("(describe '".expand("<cw
 
 nnoremap <buffer> ,lf :call Lisp_send_to_lisp( "(load \"" . expand( "%:p" ) . "\")")<cr>
 
-" open new line before/after current sexp
-nmap <buffer> ,o {%a(
-nmap <buffer> ,O {i<esc>(a(
+nnoremap <buffer> <silent> <PageUp> :set nowrapscan<cr>99[(?)<cr>:noh<cr>[(:set wrapscan<cr>
+nnoremap <buffer> <silent> <PageDown> :set nowrapscan<cr>99])/(<cr>:noh<cr>:set wrapscan<cr>
 
-nnoremap <buffer> <F7> :wa<cr>:call Lisp_eval_top_form()<CR>
+" open new line before/after current sexp
+nmap <buffer> ,o {%a()<esc>==a
+nmap <buffer> ,O {i<esc>(a()<esc>==a
+
+nnoremap <buffer> <silent> <F7> :wa<cr>:call Lisp_eval_top_form()<CR><CR>
 nnoremap <buffer> <silent> <C-F7> :call Screen_Vars()<cr>
 nnoremap <buffer> <silent> <S-F7> :call Lisp_eval_current_form()<CR>
 
 " debugger interactions
-nnoremap <buffer> <silent> <F12> :call Lisp_send_to_lisp("ABORT")<cr>
-nnoremap <buffer> <silent> <C-F12> :call Lisp_send_to_lisp("")<cr>
+nnoremap <buffer> <silent> <End> :call Lisp_send_to_lisp("ABORT")<cr>
+nnoremap <buffer> <silent> <C-c> :call Lisp_send_to_lisp("")<cr>
 nnoremap <buffer> <silent> <M-Down> :call Lisp_send_to_lisp("DOWN")<cr>
 nnoremap <buffer> <silent> <M-Up> :call Lisp_send_to_lisp("UP")<cr>
 nnoremap <buffer> <silent> <M-l> :call Lisp_send_to_lisp("LIST")<cr>
@@ -43,6 +41,16 @@ nnoremap <buffer> <silent> <M-a> :call Lisp_send_to_lisp("SOURCE 2")<cr>
 nnoremap <buffer> <silent> <M-s> :call Lisp_send_to_lisp("SOURCE 4")<cr>
 nnoremap <buffer> <silent> <M-d> :call Lisp_send_to_lisp("SOURCE 999")<cr>
 nnoremap <buffer> <silent> <M-e> :call Lisp_send_to_lisp("ERROR")<cr>
+nnoremap <buffer> <silent> <M-c> :call Lisp_send_to_lisp("")<cr>
+nnoremap <buffer> <silent> <M-g> :call Lisp_send_to_lisp("g")<cr>
+nnoremap <buffer> <silent> <M-v> :call Lisp_send_to_lisp("v")<cr>
+nnoremap <buffer> <silent> <M-t> :call Lisp_send_to_lisp("(run-tests ".expand("<cword>").")")<cr>
+nnoremap <buffer> <silent> <M-r> :call Lisp_send_to_lisp("(trace ".expand("<cword>").")")<cr>
+nnoremap <buffer> <silent> <M-C-r> :call Lisp_send_to_lisp("(untrace ".expand("<cword>").")")<cr>
+
+nnoremap <buffer> <silent> ! :call Lisp_close_top_form()<cr>
+
+nnoremap <buffer> <silent> <Tab> 999[(=%`'
 
 nnoremap <buffer> <silent> <F11> :wa<cr>:call Lisp_run_tests()<cr>
 nnoremap <buffer> <silent> <C-F11> :call Lisp_toggle_to_from_tests()<cr>
@@ -52,9 +60,10 @@ setlocal lisp syntax=lisp
 setlocal ls=2 bs=2 si et sw=2 ts=2 tw=0 
 setlocal iskeyword=&,*,+,45,/,48-57,:,<,=,>,@,A-Z,a-z,_
 setlocal cpoptions-=mp
+setlocal lispwords+=define-test
  
 " This allows gf and :find to work. Fix path to your needs
-setlocal suffixesadd=.lisp,cl path=/home/sgraham/**
+setlocal suffixesadd=.lisp,cl path=.,/home/sgraham/**
 
 " This allows [d [i [D [I work across files if an ASDF buffer is opened
 " If I used load, it would be there too.
@@ -157,13 +166,46 @@ function! Lisp_eval_top_form()
   " save position
   let p = Lisp_get_pos()
 
-  silent! exec "normal! 99[("
-  call Lisp_send_to_lisp( Lisp_yank( "%" ) )
+  silent! exec "normal! 999[("
+
+  let tmpfile = tempname()
+  call writefile(split(Lisp_yank("%"), "\n"), tmpfile)
+  call Lisp_send_to_lisp("(load \"" . tmpfile . "\" :print t)\n")
 
   " fix cursor position, in case of error below
   call Lisp_goto_pos( p )
 endfunction
 
+function! Lisp_close_top_form()
+    " save position
+    let origp = Lisp_get_pos()
+
+    while 1
+        " get start of top-level
+        exec "normal! 99[("
+        let startp = Lisp_get_pos()
+
+        " get current end of top-level
+        call Lisp_goto_pos(origp)
+        exec "normal! 99])"
+        let curendp = Lisp_get_pos()
+        exec "normal! %"
+        let matchedfromend = Lisp_get_pos()
+        exec "normal! %"
+        
+        " if the end matches the start, we're done
+        if matchedfromend == startp
+            break
+        endif
+
+        " otherwise, add a ) and continue
+        exec "normal! a)\<Esc>"
+
+    endwhile
+
+    " restore cursor pos
+    call Lisp_goto_pos(origp)
+endfunction
 
 function! Lisp_eval_current_form()
   " save position
@@ -172,7 +214,7 @@ function! Lisp_eval_current_form()
   " find & yank current s-exp
   normal! [(
   let sexp = Lisp_yank( "%" )
-  call Lisp_send_to_lisp( sexp )
+  call Lisp_send_to_lisp( sexp . "" )
   call Lisp_goto_pos( pos )
 endfunction
 
@@ -182,7 +224,7 @@ function! Lisp_send_to_lisp(text)
     call Screen_Vars()
   end
   if has("unix")
-    echo system("screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
+    echo system("screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
   else
     echo system("\\cygwin\\bin\\screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
   endif

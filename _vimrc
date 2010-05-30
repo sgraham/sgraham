@@ -3,6 +3,7 @@ set shiftwidth=4
 set softtabstop=4
 set tw=78
 set columns=132
+set lines=200
 set expandtab
 set noerrorbells
 set bs=2
@@ -54,19 +55,26 @@ imap <F1> <ESC>
 cmap <F1> <ESC>
 map <F1> <ESC>
 map <Del> :bd<CR>
-map <Ins> :A<CR>
+nmap <Del> <ESC>:bd<CR>
+map <Ins> c
+nmap <Ins> <ESC>c
 map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
 map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
 nnoremap <silent> <ESC> :noh<CR><ESC>
 map <F12> :BufExplorer<cr>
+map <F4> :BufExplorer<cr>
+map <F6> :Bgrep 
 vmap <Tab> >gv
 vmap <S-Tab> <gv
+imap <C-J> 
+map <C-S-Up> :topleft sf 
+map <C-S-Down> :botright sf 
+map <C-Up> :topleft new<cr>
+map <C-Down> :botright new<cr>
 
 map ,sws :set list!<cr>
 
 map ,cd :cd %:p:h<cr>
-map <F9> [(
-map <F10> ])
 nnoremap <silent> <F11> :YRShow<CR>
 map <F8> :cn<CR>zz
 map <S-F8> :cp<CR>zz
@@ -76,8 +84,13 @@ map g, [[/^[ \t]*$<CR>O
 map ,q /\*\/<CR>o<ESC>?\/\*<CR>O<ESC>jgqapdd??<CR>kdd
 map ,i0 dO#if 0<CR>#endif<ESC>kp
 map ,u0 %dddd
-map ,ld :silent! !latex %<CR>:silent! !cmd /c start %:r.dvi<CR>
-map ,lp :silent! !pdflatex %:r<CR>:silent! !cmd /c start %:r.pdf<CR>
+if has("unix")
+    map ,ld :!latex %<CR>:!gnome-open %:r.dvi<CR>
+    map ,lp :!pdflatex %:r<CR>:!gnome-open %:r.pdf<CR>
+else
+    map ,ld :!latex %<CR>:!cmd /c start %:r.dvi<CR>
+    map ,lp :!pdflatex %:r<CR>:!cmd /c start %:r.pdf<CR>
+endif
 map ,cd :cd %:p:h<cr>
 map ,, O//--------------------------------------------<esc>H:s/\s*//<cr>
 "imap ` <ESC>
@@ -95,8 +108,10 @@ noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
 noremap <silent> <M-d> :FuzzyFinderDir<cr>
 if has("unix")
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!nautilus %:p:h<CR>:endif<CR><CR> 
+    map <silent> <S-F5> :if expand("%:p:h") != ""<CR>:!gnome-terminal %:p:h<CR>:endif<CR><CR> 
 else
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
+    map <silent> <S-F5> :if expand("%:p:h") != ""<CR>:!start cmd.exe /k cd %:p:h<CR>:endif<CR><CR> 
 endif
 map <F12> :BufExplorer<cr>
 
@@ -125,6 +140,7 @@ autocmd BufReadPost quickfix :nm <CR> <Tab>zz
 "autocmd BufReadPost quickfix :g/Binary\ file.*matches/:.d
 "autocmd BufReadPost quickfix :g/\\fifa\\ps2\\src\/tags/:d
 "autocmd BufReadPost quickfix :g/\\fifa\\cmn\\src\/tags/:d
+autocmd GUIEnter * winpos 525 0
 autocmd BufRead,BufEnter *.goo set lisp tabstop=2 shiftwidth=2
 autocmd BufRead,BufEnter *.sculpt set lisp tabstop=2 shiftwidth=2 expandtab
 autocmd BufRead,BufEnter *.scm set expandtab lisp tabstop=8 shiftwidth=8 lispwords+=module lispwords+=with-output-to-file lispwords+=define-macro
@@ -147,6 +163,11 @@ autocmd BufRead,BufNewFile,BufEnter *.lisp,*.clj so ~/vimfiles/lisp/lisp.vim
 autocmd BufRead,BufNewFile,BufEnter *.sk set ft=python ts=4 shiftwidth=4 expandtab
 autocmd BufRead,BufNewFile,BufEnter *.j setf objj
 autocmd BufRead,BufNewFile,BufEnter *.arc setf arc 
+autocmd BufRead,BufNewFile,BufEnter *.go setf go 
+autocmd BufRead,BufNewFile,BufEnter *.markdown set tw=72
+autocmd BufRead,BufNewFile,BufEnter *.cdb setf xml
+autocmd BufRead,BufNewFile,BufEnter *.hx setf haxe
+
 autocmd BufEnter * cd %:p:h
 
 " :wq and :q
@@ -184,9 +205,10 @@ augroup filetype
 augroup END
 
 gui
+set lines=87
 
 colo darkblue
 
 if filereadable(expand("~/_vimrc.local"))
-    source ~/_vimrc.local
+  source ~/_vimrc.local
 endif
