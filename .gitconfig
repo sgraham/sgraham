@@ -11,3 +11,6 @@
 [user]
 	email = scott.github@h4ck3r.net
 	name = Scott Graham
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 700x550+0+25
