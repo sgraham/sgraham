@@ -40,6 +40,7 @@ set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
 set tags+=c:/work/packages/easharptest/dev/tags
 set tags+=c:/work/packages/easharp/dev/tags
 set tags+=../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags
+set path+=./**,../**
 
 map L $
 map H ^
@@ -67,10 +68,6 @@ map <F6> :Bgrep
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 imap <C-J> 
-map <C-S-Up> :topleft sf 
-map <C-S-Down> :botright sf 
-map <C-Up> :topleft new<cr>
-map <C-Down> :botright new<cr>
 
 map ,sws :set list!<cr>
 
@@ -208,6 +205,29 @@ gui
 set lines=87
 
 colo darkblue
+
+
+
+function! BcloseAndLeaveWindow()
+    let btarget = bufnr('%')
+    let wcurrent = winnr()
+    execute 'enew!'
+    execute 'bdelete! ' . btarget
+    execute wcurrent . 'wincmd w'
+endfunction
+function! SetUpWindows()
+    :vsp
+    wincmd w
+    :20sp
+    wincmd r
+    map <C-j> t
+    map <C-k> t
+    map <C-l> b
+    map <Del> :BufExplorer<cr>
+    nmap <Del> <Esc>:BufExplorer<cr>
+    wincmd t
+endfunction
+map ,win :call SetUpWindows()<cr>
 
 if filereadable(expand("~/_vimrc.local"))
   source ~/_vimrc.local
