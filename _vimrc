@@ -63,6 +63,7 @@ map <silent> <PageUp> :set nowrapscan<cr>?<cr>zt:noh<cr>:set wrapscan<cr>
 map <silent> <PageDown> :set nowrapscan<cr>/<cr>zt:noh<cr>:set wrapscan<cr>
 nnoremap <silent> <ESC> :noh<CR><ESC>
 map <F12> :BufExplorer<cr>
+imap <F12> <ESC>:BufExplorer<cr>
 map <F4> :BufExplorer<cr>
 map <F6> :Bgrep 
 vmap <Tab> >gv
@@ -94,15 +95,6 @@ map ,, O//--------------------------------------------<esc>H:s/\s*//<cr>
 " i'd really prefer perforce.vim but i can never get it working right
 map <F1> :!p4 edit %<CR>
 "noremap <silent> <ESC><ESC> :ccl<cr>
-noremap <M-l> guiww
-noremap <M-u> gUiww
-noremap! <M-l> <Esc>guiw`]a
-noremap! <M-u> <Esc>gUiw`]a
-noremap <silent> <M-f> :FuzzyFinderFile<cr>
-noremap <silent> <M-t> :FuzzyFinderTag<cr>
-noremap <silent> <M-g> :FuzzyFinderTaggedFile<cr>
-noremap <silent> <M-b> :FuzzyFinderBuffer<cr>
-noremap <silent> <M-d> :FuzzyFinderDir<cr>
 if has("unix")
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!nautilus %:p:h<CR>:endif<CR><CR> 
     map <silent> <S-F5> :if expand("%:p:h") != ""<CR>:!gnome-terminal %:p:h<CR>:endif<CR><CR> 
@@ -220,9 +212,12 @@ function! SetUpWindows()
     wincmd w
     :20sp
     wincmd r
-    map <C-j> t
-    map <C-k> t
-    map <C-l> b
+    map <M-j> t
+    map <M-k> t
+    map <M-l> b
+    imap <M-j> <ESC>t
+    imap <M-k> <ESC>t
+    imap <M-l> <ESC>b
     map <Del> :BufExplorer<cr>
     nmap <Del> <Esc>:BufExplorer<cr>
     wincmd t
