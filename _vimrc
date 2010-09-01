@@ -157,6 +157,8 @@ autocmd BufRead,BufNewFile,BufEnter *.go setf go
 autocmd BufRead,BufNewFile,BufEnter *.markdown set tw=72
 autocmd BufRead,BufNewFile,BufEnter *.cdb setf xml
 autocmd BufRead,BufNewFile,BufEnter *.hx setf haxe
+autocmd BufRead,BufNewFile,BufEnter *.mkd   setf mkd
+autocmd BufRead,BufNewFile,BufEnter *.mkd   set ai formatoptions=tcroqnwa2 comments=n:&gt; tw=78
 
 autocmd BufEnter * cd %:p:h
 
