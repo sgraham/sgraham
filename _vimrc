@@ -32,7 +32,7 @@ set previewheight=10
 set titlestring=%t\ %(%r\ %m%)\ %F
 set wildmenu
 set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
-set formatoptions=croqlan
+set formatoptions=croqln
 
 "set tags+=c:/devkitPro/libnds/include/tags
 "set tags+=c:/code/twinisles/src/tags
@@ -144,7 +144,7 @@ autocmd BufRead,BufNewFile,BufEnter sconstruct set ft=python
 autocmd BufRead,BufEnter *.nfo set guifont=Terminal
 autocmd BufRead,BufEnter,BufNewFile *.sc set ic syntax=scheme tabstop=8 shiftwidth=8 autoindent comments=:; define=^\\s*(def\\k* formatoptions-=t iskeyword+=+,-,*,/,%,<,=,>,:,$,?,!,@-@,94 lisp
 autocmd BufRead blog.xml exe "normal jo\<CR>\<ESC>,id\<ESC>kkko"
-autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set expandtab ts=4 sw=4 cindent
+autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set expandtab ts=4 sw=4 cindent formatoptions=croqlan
 autocmd BufRead,BufNewFile,BufEnter *.json set ft=json
 autocmd BufNewFile,BufRead,BufEnter *.boo,*.module setf boo 
 autocmd BufNewFile,BufRead,BufEnter *.ls setf lisp
@@ -159,6 +159,7 @@ autocmd BufRead,BufNewFile,BufEnter *.cdb setf xml
 autocmd BufRead,BufNewFile,BufEnter *.hx setf haxe
 autocmd BufRead,BufNewFile,BufEnter *.mkd   setf mkd
 autocmd BufRead,BufNewFile,BufEnter *.mkd   set ai formatoptions=tcroqnwa2 comments=n:&gt; tw=78
+autocmd BufRead,BufNewFile,BufEnter Jamroot,*.jam setf jam 
 
 autocmd BufEnter * cd %:p:h
 
