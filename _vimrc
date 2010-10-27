@@ -32,7 +32,7 @@ set previewheight=10
 set titlestring=%t\ %(%r\ %m%)\ %F
 set wildmenu
 set wildignore+=*.log,*.pdf,*.swp,*.o,*.py[co],*~
-set formatoptions=croqlan
+set formatoptions=croqln
 
 "set tags+=c:/devkitPro/libnds/include/tags
 "set tags+=c:/code/twinisles/src/tags
@@ -94,12 +94,14 @@ map ,cd :cd %:p:h<cr>
 map ,, O//--------------------------------------------<esc>H:s/\s*//<cr>
 "imap ` <ESC>
 " i'd really prefer perforce.vim but i can never get it working right
-map <F1> :!p4 edit %<CR>
+
 "noremap <silent> <ESC><ESC> :ccl<cr>
 if has("unix")
+    map <F1> :!/opt/p4/bin/p4 edit %<CR>
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!nautilus %:p:h<CR>:endif<CR><CR> 
     map <silent> <S-F5> :if expand("%:p:h") != ""<CR>:!gnome-terminal %:p:h<CR>:endif<CR><CR> 
 else
+    map <F1> :!p4 edit %<CR>
     map <silent> <C-F5> :if expand("%:p:h") != ""<CR>:!start explorer.exe %:p:h,/e<CR>:endif<CR><CR> 
     map <silent> <S-F5> :if expand("%:p:h") != ""<CR>:!start cmd.exe /k cd %:p:h<CR>:endif<CR><CR> 
 endif
@@ -144,7 +146,7 @@ autocmd BufRead,BufNewFile,BufEnter sconstruct set ft=python
 autocmd BufRead,BufEnter *.nfo set guifont=Terminal
 autocmd BufRead,BufEnter,BufNewFile *.sc set ic syntax=scheme tabstop=8 shiftwidth=8 autoindent comments=:; define=^\\s*(def\\k* formatoptions-=t iskeyword+=+,-,*,/,%,<,=,>,:,$,?,!,@-@,94 lisp
 autocmd BufRead blog.xml exe "normal jo\<CR>\<ESC>,id\<ESC>kkko"
-autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh set expandtab ts=4 sw=4 cindent
+autocmd BufRead,BufNewFile,BufEnter *.cs,*.cpp,*.h,*.tup,*.inl,*.cc,*.c,*.hh,*.js set expandtab ts=4 sw=4 cindent formatoptions=croqnl
 autocmd BufRead,BufNewFile,BufEnter *.json set ft=json
 autocmd BufNewFile,BufRead,BufEnter *.boo,*.module setf boo 
 autocmd BufNewFile,BufRead,BufEnter *.ls setf lisp
